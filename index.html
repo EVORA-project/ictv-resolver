@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ICTV Taxon Resolver</title>
+<link rel="stylesheet" href="ictv-resolver.css">
+</head>
+<body>
+<div class="disclaimer">
+  <b>This page is a showcase</b> of the <a href="https://www.ebi.ac.uk/ols4/ontologies/ictv" target="_blank">ICTV Ontology API</a> available through the <a href="https://www.ebi.ac.uk/ols4/" target="_blank">Ontology Lookup Service (OLS)</a>.  
+  It demonstrates how programs can resolve <i>ICTV taxonomic terms</i> through the API.  
+  If you are a human user, you may prefer visiting the official ICTV taxonomy interface at 
+  <a href="https://ictv.global/taxonomy" target="_blank">ictv.global/taxonomy</a>.  
+  <br>
+  Data sources © ICTV (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>) — retrieved using the <code>ICTV API JS Helper</code> from 
+  <a href="https://github.com/EVORA-project/ictv-ontology" target="_blank">EVORA-project/ictv-ontology</a>.
+</div>
+
+<div class="wrap">
+  <div class="title">ICTV Taxon Resolver</div>
+  <div class="subtitle">Paste a virus name,  a taxon name (incl. synonyms), an ICTV ID/IRI, or an NCBI Taxon ID. Choose an action, then resolve.</div>
+
+  <div class="card">
+    <div class="controls">
+      <input id="q" class="input" placeholder="e.g. ICTV19990862, http://ictv.global/id/MSL39/ICTV19990862, Zika virus, 64320, …" />
+      <select id="mode">
+        <option value="resolve" selected>Resolve to latest ICTV</option>
+        <option value="history">Show history across MSLs</option>
+      </select>
+      <button id="go">Resolve</button>
+    </div>
+    <div class="hint">Tip: for NCBI, both <code>64320</code> and <code>ncbitaxon:64320</code> work.</div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="toolbar">
+    <div id="summary" class="status">Ready.</div>
+    <label class="toggle"><input id="show-json" type="checkbox" /> Show raw JSON</label>
+  </div>
+
+  <div id="result" class="card flexcol">
+    <div id="table-slot"></div>
+    <div id="json-slot" style="display:none;"><pre class="json" id="json-pre"></pre></div>
+  </div>
+</div>
+<!-- Load helper from the ontology repo, then UI code -->
+<script type="module">
+  import { ICTVApi } from 'https://cdn.jsdelivr.net/gh/EVORA-project/ictv-ontology/helpers/js/ictv-api.js';
+  import initUI from './ui.js';
+  const api = new ICTVApi();
+  initUI(api);
+</script>
+
+</body>
+</html>
