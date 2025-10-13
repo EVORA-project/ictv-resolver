@@ -1,57 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>ICTV Taxon Resolver</title>
-<link rel="stylesheet" href="ictv-resolver.css">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="EVORA| European Viral Outbreak Research Alliance" />
+  <meta property="og:description"
+    content="ICTV Taxon resolver - public ICTV API showcase - EVORA seeks to enhance European research and practical capability to respond to viral outbreaks" />
+  <meta name="description"
+    content="ICTV Taxon resolver - public ICTV API showcase -EVORA seeks to enhance European research and practical capability to respond to viral outbreaks" />
+  <meta name="keywords"
+    content="ICTV, API, OLS, Ontology, showcase Research Infrastructure, Interoperability, Synergy, Preparedness and response, Virus outbreak, High Risk pathogens, Data management, Regulatory compliance, Quality Management, ESFRI, Business strategy, virus, viruses, Outbreak, services, assays, assay, pathogens, RNA, antibodies, genome, antigens, detection kits, ELIXIR, ERINHA, EVA, European, " />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://evora-project.eu" />
+  <meta property="og:image" rel="preload" as="image" content="assets/images/logo/logo_favicon.svg" />
+  <title>
+    EVORA| ICTV Taxon resolver - showcase
+  </title>
+  <link rel="canonical" href="https://evora-project.eu" />
+  <link rel="icon" sizes="any" type="image/svg+xml" href="assets/images/logo/logo_favicon.svg">
+  <link rel="stylesheet" href="assets/css/evora-ictv-resolver.css" />
 </head>
-<body>
-<div class="disclaimer">
-  <b>This page is a showcase</b> of the <a href="https://www.ebi.ac.uk/ols4/ontologies/ictv" target="_blank">ICTV Ontology API</a> available through the <a href="https://www.ebi.ac.uk/ols4/" target="_blank">Ontology Lookup Service (OLS)</a>.  
-  It demonstrates how programs can resolve <i>ICTV taxonomic terms</i> through the API.  
-  If you are a human user, you may prefer visiting the official ICTV taxonomy interface at 
-  <a href="https://ictv.global/taxonomy" target="_blank">ictv.global/taxonomy</a>.  
-  <br>
-  Data sources © ICTV (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>) — retrieved using the <code>ICTV API JS Helper</code> from 
-  <a href="https://github.com/EVORA-project/ictv-ontology" target="_blank">EVORA-project/ictv-ontology</a>.
-</div>
 
-<div class="wrap">
-  <div class="title">ICTV Taxon Resolver</div>
-  <div class="subtitle">Paste a virus name,  a taxon name (incl. synonyms), an ICTV ID/IRI, or an NCBI Taxon ID. Choose an action, then resolve.</div>
+<body class="bg-dark text-white">
 
-  <div class="card">
-    <div class="controls">
-      <input id="q" class="input" placeholder="e.g. ICTV19990862, http://ictv.global/id/MSL39/ICTV19990862, Zika virus, 64320, …" />
-      <select id="mode">
-        <option value="resolve" selected>Resolve to latest ICTV</option>
-        <option value="history">Show history across MSLs</option>
-      </select>
-      <button id="go">Resolve</button>
-    </div>
-    <div class="hint">Tip: for NCBI, both <code>64320</code> and <code>ncbitaxon:64320</code> work.</div>
-  </div>
+  <!-- MENU -->
+  <div id="menu-placeholder"></div>
 
-  <div class="spacer"></div>
+  <!-- HERO -->
+  <div id="hero-placeholder"></div>
 
-  <div class="toolbar">
-    <div id="summary" class="status">Ready.</div>
-    <label class="toggle"><input id="show-json" type="checkbox" /> Show raw JSON</label>
-  </div>
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- ====== ICTV Resolver Section Start -->
+    <section id="ictv-resolver" class="py-12 bg-black">
+      <div class="container">
+        <div class="ictv-theme">
 
-  <div id="result" class="card flexcol">
-    <div id="table-slot"></div>
-    <div id="json-slot" style="display:none;"><pre class="json" id="json-pre"></pre></div>
-  </div>
-</div>
-<!-- Load helper from the ontology repo, then UI code -->
-<script type="module">
-  import { ICTVApi } from 'https://cdn.jsdelivr.net/gh/EVORA-project/ictv-ontology/helpers/js/ictv-api.js';
-  import initUI from './ui.js';
-  const api = new ICTVApi();
-  initUI(api);
-</script>
+          <div class="ictv-disclaimer mt-6 text-slate-300 leading-relaxed">
+            <b>This page is a showcase</b> of the <u>public</u> <a href="https://www.ebi.ac.uk/ols4/api/ontologies/ictv"
+              target="_blank">ICTV Ontology API</a> developed by the <a href="https://evora-project.eu">EVORA
+              project</a> in collaboration with <a href="https://ictv.global/" target="_blank">ICTV</a>, and made
+            available through the <a href="https://www.ebi.ac.uk/ols4/" target="_blank">Ontology Lookup Service
+              (OLS)</a>.
+            It demonstrates how programs can resolve <i>ICTV taxonomic terms</i> to their latest version through the public ICTV OLS
+            API.
+            If you are a human user, you may prefer visiting the official ICTV taxonomy interface at
+            <a href="https://ictv.global/taxonomy" target="_blank">ictv.global/taxonomy</a>.
+            <br>
+            Data sources © ICTV (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>) —
+            retrieved using the <a href="https://www.ebi.ac.uk/ols4/ontologies/ictv" target="_blank">ICTV ontology</a>
+            via the <a href="https://www.ebi.ac.uk/ols4/api-docs" target="_blank">public OLS API</a> with the
+            <code>ICTV API JS Helper</code> from
+            <a href="https://github.com/EVORA-project/ictv-ontology"
+              target="_blank">EVORA-project/ictv-ontology</a>.<br> This page is a static client-side application, hosted
+            on GitHub Pages (<a href="https://evora-project.github.io/ictv-resolver/" aria-label="the github page url"
+              target="_blank">https://evora-project.github.io/ictv-resolver/</a>)
+            . No data is stored or processed on a local backend/server — <br> all the magic happens on the <a
+              href="https://www.ebi.ac.uk/ols4/api/ontologies/ictv" target="_blank">ICTV OLS API</a>.
+          </div>
+
+          <div class="ictv-wrap">
+            <div class="ictv-title">ICTV Taxon Resolver</div>
+            <div class="ictv-subtitle">Paste a virus name, a taxon name (incl. synonyms), an ICTV ID/IRI, or an NCBI
+              Taxon ID. Choose an action, then resolve.</div>
+
+            <div class="ictv-card">
+              <div class="ictv-controls">
+                <input id="q" class="ictv-input"
+                  placeholder="e.g. ICTV19990862, http://ictv.global/id/MSL39/ICTV19990862, Zika virus, 64320, …" />
+                <select id="mode" class="ictv-select">
+                  <option value="resolve" selected>Resolve to latest ICTV</option>
+                  <option value="history">Show history across MSLs</option>
+                </select>
+                <button id="go" class="ictv-button">Resolve</button>
+              </div>
+              <div class="ictv-hint">Tip: for NCBI, both <code>64320</code> and <code>ncbitaxon:64320</code> work.</div>
+            </div>
+
+            <div class="ictv-spacer"></div>
+
+            <div class="ictv-toolbar">
+              <div id="summary" class="ictv-status status ok">Ready.</div>
+              <label class="toggle"><input id="show-json" type="checkbox" /> Show raw JSON</label>
+            </div>
+
+            <div id="result" class="ictv-card ictv-flexcol">
+              <div id="table-slot"></div>
+              <div id="json-slot" class="hidden">
+                <pre class="ictv-json" id="json-pre"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ====== ICTV Resolver Section End -->
+  </main>
+  <!-- FOOTER -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Back to top -->
+  <a href="javascript:void(0)"
+    class="back-to-top fixed bottom-5 right-5 hidden z-50 rounded-full bg-primary p-3 shadow-lg transition hover:bg-primary/80">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+    </svg>
+  </a>
+
+  <!-- ====== JS Scripts  -->
+   
+  <!-- Where Magic happens: Load helper from the ontology repo, then UI code -->
+  <script type="module">
+    import { ICTVApi } from 'https://cdn.jsdelivr.net/gh/EVORA-project/ictv-ontology/helpers/js/ictv-api.js';
+    import initUI from './ui.js';
+    const api = new ICTVApi();
+    initUI(api);
+  </script>
+
+  <!-- Main JS -->
+  <script src="assets/js/main.js" async></script>
 
 </body>
+
 </html>
