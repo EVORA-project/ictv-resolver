@@ -1,31 +1,29 @@
 /* -------------------------------
  * Load partials then init scripts
  * ------------------------------- */
-document.addEventListener("DOMContentLoaded", () => {
-  Promise.all([
-    fetch("assets/parts/menu.html")
-      .then(r => r.text())
-      .then(html => {
-        document.getElementById("menu-placeholder").innerHTML = html;
-      }),
-    fetch("assets/parts/footer.html")
-      .then(r => r.text())
-      .then(html => {
-        document.getElementById("footer-placeholder").innerHTML = html;
-      }),
-    fetch("assets/parts/hero.html")
-      .then(r => r.text())
-      .then(html => {
-        document.getElementById("hero-placeholder").innerHTML = html;
-      })
-  ]).then(() => {
-    initMenu();
-    initScroll();
-    initBackToTop();
-  });
+async function loadPartial(id, file) {
+  try {
+    const response = await fetch(file, { cache: "no-cache" });
+    if (!response.ok) throw new Error(`Failed to fetch ${file}`);
+    const html = await response.text();
+    document.getElementById(id).innerHTML = html;
+  } catch (err) {
+    console.error(err);
+  }
+}
 
+document.addEventListener("DOMContentLoaded", async () => {
+  await Promise.all([
+    loadPartial("menu-placeholder", "assets/parts/menu.html"),
+    loadPartial("footer-placeholder", "assets/parts/footer.html"),
+    loadPartial("hero-placeholder", "assets/parts/hero.html"),
+  ]);
 
+  initMenu();
+  initScroll();
+  initBackToTop();
 });
+
 
 /* -------------------------------
  * Navbar toggle logic
