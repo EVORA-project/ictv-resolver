@@ -1,4 +1,4 @@
-// ui.js — adapted for TailwindCSS v3 while preserving original behavior
+// ui.js — User interface to be used in combination with the ictv-api.js helper: https://github.com/EVORA-project/ictv-ontology/tree/main/helpers
 export default function initUI(api) {
   const q = id => document.getElementById(id);
   const qs = sel => document.querySelector(sel);
@@ -170,7 +170,7 @@ export default function initUI(api) {
       return renderList(links);
     }
     if (typeof v === 'boolean') return v ? 'true' : '';
-    if (isUrlLike(v)) return `<a href="${v}" target="_blank" rel="noopener" class="text-primary hover:underline">${escapeHtml(v)}</a>`;
+    if (isUrlLike(v)) return `<a href="${v}" target="_blank" rel="noopener" class="text-primary hover:underline break-all">${escapeHtml(v)}</a>`;
     return escapeHtml(String(v));
   }
 
@@ -259,31 +259,6 @@ export default function initUI(api) {
 
       const inline = document.createElement('div');
       inline.className = 'lineage-inline  mt-2 text-sm text-gray-300 space-y-1';
-      /*
-            btn.addEventListener('click', () => {
-              if (isSmallScreen()) {
-                if (inline.classList.contains('open')) {
-                  inline.classList.remove('open');
-                  inline.innerHTML = '';
-                  btn.textContent = 'Show full lineage';
-                } else {
-                  inline.classList.add('open');
-                  inline.innerHTML = renderLineage(rows[i]);
-                  btn.textContent = 'Hide lineage';
-                }
-              } else {
-                const detail = lineageRow.querySelector('td');
-                if (lineageRow.classList.contains('hidden')) {
-                  lineageRow.classList.remove('hidden');
-                  detail.innerHTML = renderLineage(rows[i]);
-                  btn.textContent = 'Hide lineage';
-                } else {
-                  lineageRow.classList.add('hidden');
-                  btn.textContent = 'Show full lineage';
-                }
-              }
-            });
-      */
       btn.className = "ictv-lineage-btn ...";
       btn.setAttribute('type', 'button');
       btn.setAttribute('aria-expanded', 'false');
