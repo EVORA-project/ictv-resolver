@@ -24,7 +24,7 @@ export default function initUI(api) {
   /* -------------------- Summary/status -------------------- */
   function renderSummary(data) {
     const el = q('summary');
-    el.className = 'status block mb-4 text-md font-medium transition duration-300';
+    el.className = 'status block sm:inline-flex mb-4 text-md font-medium transition duration-300';
 
     if (data.status === 'not-found') {
       el.classList.add('err');
