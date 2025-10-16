@@ -22,7 +22,7 @@ Lightweight showcase of the **public** [ICTV Ontology API](https://www.ebi.ac.uk
 This simple static web interface demonstrates how the **public** ICTV API can resolve taxonomic terms and historical names.
 
 It allows you to:
-- Resolve ICTV taxon from an identifier, a former taxon name, a virus name, synonyms, or NCBI Taxon mappings
+- Resolve the current version of an ICTV taxon from an identifier, a former taxon name, a virus name, synonyms, or NCBI Taxon mappings
 - Retrieve full ontology term details, including lineage
 - Visualize relationships and term history
 
