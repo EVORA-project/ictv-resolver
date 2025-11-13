@@ -28,7 +28,7 @@ It allows you to:
 
 ## 🔧 How it works
 The resolver uses:
-- **JavaScript ICTV API helper:** [ictv-api.js](https://cdn.jsdelivr.net/gh/EVORA-project/ictv-ontology/helpers/js/ictv-api.js) — lightweight utility for querying the ICTV API.
+- **JavaScript ICTV API helper:** [ictv-api.js](https://cdn.jsdelivr.net/gh/EVORA-project/ictv-ontology/helpers/js/ictv-api.js) — lightweight ES module for querying the ICTV API *(Note: this file must be imported with type="module" and a named export.)*.
 - **JavaScript UI:** [from this code repository ](https://github.com/EVORA-project/ictv-resolver/blob/main/ui.js)
 - **Ontology source:** [ICTV Ontology](https://github.com/EVORA-project/ictv-ontology)
 - **API Endpoint:** [OLS4 ICTV Ontology API](https://www.ebi.ac.uk/ols4/api/ontologies/ictv).
@@ -39,20 +39,25 @@ The interface is deployed via GitHub Pages.
 
 ## 🧩 Integration
 
-If you want to use the ICTV API in your own project, simply include:
-
-```html
-<script src="https://cdn.jsdelivr.net/gh/EVORA-project/ictv-ontology/helpers/js/ictv-api.js"></script>
-```
-
-And then call:
+To use the ICTV API helper in your own project, import it as an ES module:
 
 ```javascript
-const api = new ICTVApi();
-const result = await api.resolveToLatest('Zika virus');
-console.log(result);
-```
+<script type="module">
+  import { ICTVApi } from "https://cdn.jsdelivr.net/gh/EVORA-project/ictv-ontology/helpers/js/ictv-api.js";
 
+  const api = new ICTVApi();
+  const result = await api.resolveToLatest("Zika virus");
+  console.log(result);
+</script>
+```
+### Why this syntax?
+
+* ictv-api.js is an ES module, so it must be loaded with type="module".
+
+* The helper exports a named class ({ ICTVApi }), not a default export.
+
+* You can use top-level await inside module scripts.
+  
 For more advanced usage, see [the helper documentation](https://github.com/EVORA-project/ictv-ontology/tree/main/helpers/js).
 
 ℹ️ You can also clone this repository and adapt the UI directly for your use case.
