@@ -145,8 +145,8 @@ export default function initUI(api) {
       return renderList(links);
     }
     if (col === 'lineage' && Array.isArray(v)) {
-      const ancestors = Array.isArray(row.ancestors_iris) ? [...row.ancestors_iris].reverse() : [];
-      const labels = [...v].reverse();
+      const ancestors = Array.isArray(row.ancestors_iris) ? [...row.ancestors_iris] : [];
+      const labels = [...v];
       const parts = labels.map((label, i) => {
         const iri = ancestors[i] || null;
         if (iri && isUrlLike(iri)) {
@@ -178,8 +178,8 @@ export default function initUI(api) {
     if (!row.lineage || !Array.isArray(row.lineage) || row.lineage.length === 0) {
       return '<div class="text-gray-400 text-md italic">No lineage data available.</div>';
     }
-    const ancestors = Array.isArray(row.ancestors_iris) ? [...row.ancestors_iris].reverse() : [];
-    const labels = [...row.lineage].reverse();
+    const ancestors = Array.isArray(row.ancestors_iris) ? [...row.ancestors_iris] : [];
+    const labels = [...row.lineage];
     const items = labels.map((label, i) => {
       const iri = ancestors[i] || null;
       if (iri && isUrlLike(iri)) {
