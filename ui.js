@@ -10,6 +10,35 @@ export default function initUI(api) {
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[c]));
   const isUrlLike = (v) => typeof v === 'string' && /^https?:\/\//i.test(v);
+  const hasReplacementRows = (data) => Array.isArray(data?.replacements) && data.replacements.length > 0;
+  const getObsolescenceReason = (data) => {
+    const reason = data?.obsolete?.obsolescence_reason;
+    if (typeof reason === 'string' && reason.trim()) return reason.trim();
+    return hasReplacementRows(data) ? '' : 'Abolished';
+  };
+  const hasRevisionOrReplacement = (row) => {
+    const values = [row?.replaced_by, row?.had_revision];
+    return values.some(v => {
+      if (Array.isArray(v)) return v.length > 0;
+      return v !== null && v !== undefined && String(v).trim() !== '';
+    });
+  };
+  const getHistoryObsolescenceReason = (row) => {
+    const reason = row?.obsolescence_reason;
+    if (typeof reason === 'string' && reason.trim()) return reason.trim();
+    if (row?.is_obsolete && !hasRevisionOrReplacement(row)) return 'Abolished';
+    return '';
+  };
+  const normalizeHistoryRows = (rows) =>
+    rows.map(row => {
+      const obsolescenceReason = getHistoryObsolescenceReason(row);
+      const status = row.is_obsolete ? 'obsolete' : 'current';
+      return {
+        ...row,
+        obsolescence_reason: obsolescenceReason || row.obsolescence_reason,
+        status
+      };
+    });
 
   function mapDbLink(curie) {
     if (!curie || typeof curie !== 'string') return null;
@@ -71,10 +100,11 @@ export default function initUI(api) {
       )})`;
     } else if (data.status === 'obsolete') {
       el.classList.add('warn');
+      const obsolescenceReason = getObsolescenceReason(data);
       el.innerHTML = `⚠️ Obsolete in ${escapeHtml(
         data.obsolete.msl
-      )}${data.obsolete.obsolescence_reason
-          ? ` (Reason: <b>${escapeHtml(data.obsolete.obsolescence_reason)}</b>)`
+      )}${obsolescenceReason
+          ? ` (Reason: <b>${escapeHtml(obsolescenceReason)}</b>)`
           : ''
         }`;
     } else if (data.status === 'ok' && data.history) {
@@ -122,6 +152,13 @@ export default function initUI(api) {
     }
     if (col === 'ictv_id' && row.iri) {
       return `<a href="${row.iri}" target="_blank" rel="noopener" class="text-primary hover:underline">${escapeHtml(v)}</a>`;
+    }
+    if (col === 'status') {
+      const reason = row.obsolescence_reason;
+      if (v === 'obsolete' && typeof reason === 'string' && reason.trim()) {
+        return `${escapeHtml(v)}<br><small><b>Reason:</b> ${escapeHtml(reason.trim())}</small>`;
+      }
+      return escapeHtml(String(v));
     }
     if (col === 'ncbi') {
       if (!Array.isArray(v) || v.length === 0) return '';
@@ -202,7 +239,7 @@ export default function initUI(api) {
     }
 
     const { cols, rows } = compactColumns(objects);
-    const hidden = new Set(['iri', 'lineage', 'ictv_curie', 'direct_parent_iri', 'rank_iri', 'ancestors_iris', 'replaced_by', 'had_revision', 'is_obsolete']);
+    const hidden = new Set(['iri', 'lineage', 'ictv_curie', 'direct_parent_iri', 'rank_iri', 'ancestors_iris', 'replaced_by', 'had_revision', 'is_obsolete', 'obsolescence_reason']);
     const visibleCols = cols.filter(c => !hidden.has(c));
 
     const preferredOrder = [
@@ -218,6 +255,7 @@ export default function initUI(api) {
       msl: 'ICTV release',
       rank_label: 'Rank',
       direct_parent_label: 'Direct parent taxon',
+      status: 'Status',
       was_revision_of: 'Was revision of',
       narrow_match: 'Narrow match',
       ncbi: 'NCBI bridge',
@@ -336,7 +374,7 @@ export default function initUI(api) {
         if (data.status === 'not-found') {
           renderTable([]); renderJSON(data); return;
         }
-        renderTable(data.history);
+        renderTable(normalizeHistoryRows(data.history));
         renderJSON(data);
       } else {
         const data = await api.resolveToLatest(input);
@@ -355,6 +393,7 @@ export default function initUI(api) {
           if (data.obsolete) {
             rows.push({
               ...data.obsolete,
+              obsolescence_reason: getObsolescenceReason(data),
               status: 'obsolete',
               ncbi: data.obsolete.ictv_curie ? await api.getNcbiForIctvCurie(data.obsolete.ictv_curie) : []
             });

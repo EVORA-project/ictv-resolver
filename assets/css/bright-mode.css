@@ -1,0 +1,223 @@
+/* Bright mode used for publication-ready screenshots of the resolver block only. */
+.ictv-title-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.ictv-title-row .ictv-title {
+  margin-bottom: 0;
+}
+
+.theme-toggle {
+  align-items: center;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid #222b45;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  color: peru;
+  cursor: pointer;
+  display: inline-flex;
+  height: 42px;
+  justify-content: center;
+  padding: 0;
+  width: 42px;
+}
+
+.theme-toggle svg {
+  fill: currentColor;
+  height: 24px;
+  width: 24px;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid #4fd1c5;
+  outline-offset: 2px;
+}
+
+#ictv-resolver.evora-bright-mode {
+  background: #f7fafc;
+}
+
+#ictv-resolver.evora-bright-mode .theme-toggle {
+  background: rgba(247, 244, 244, 0.877);
+  border-color: #d7ddea;
+  box-shadow: 0 10px 28px rgba(34, 49, 74, 0.08);
+  color: #22314a;
+}
+
+#ictv-resolver.evora-bright-mode .theme-toggle:focus-visible {
+  outline-color: #fa5325;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-theme {
+  --bg: #f7fafc;
+  --panel: #ffffff;
+  --soft: #e8eef7;
+  --text: #172033;
+  --muted: #526176;
+  --accent: #1b63ce;
+  --ok: #0b7f57;
+  --warn: #9a6700;
+  --err: #c81e1e;
+  --chip: #eef4ff;
+  --border: #cfd8e6;
+  background-color: #f7fafc;
+  background-image: radial-gradient(1100px 620px at 75% -10%, rgba(31, 206, 250, 0.24) 0, rgba(247, 250, 252, 0) 70%);
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+  color: var(--text);
+}
+
+#ictv-resolver.evora-bright-mode .ictv-title {
+  color: #0b1324;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-subtitle,
+#ictv-resolver.evora-bright-mode .ictv-hint {
+  color: #526176;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-disclaimer {
+  background: #e8eef7;
+  border-color: #cfd8e6;
+  color: #172033;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-card {
+  background: #fff;
+  background-image: none;
+  border-color: #cfd8e6;
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.09);
+}
+
+#ictv-resolver.evora-bright-mode .ictv-button,
+#ictv-resolver.evora-bright-mode .ictv-input,
+#ictv-resolver.evora-bright-mode .ictv-select {
+  background: #fff;
+  border-color: #c3ccda;
+  color: #172033;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-input::placeholder {
+  color: #6a788d;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-button,
+#ictv-resolver.evora-bright-mode .ictv-theme button {
+  background: linear-gradient(180deg, #e74231, #b92820);
+  box-shadow: 0 9px 22px rgba(185, 40, 32, 0.2);
+  color: #fff;
+}
+
+#ictv-resolver .ictv-theme .theme-toggle {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid #222b45;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  color: peru;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-theme .theme-toggle {
+  background: rgba(247, 244, 244, 0.877);
+  border-color: #d7ddea;
+  box-shadow: 0 10px 28px rgba(34, 49, 74, 0.08);
+  color: #22314a;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-status,
+#ictv-resolver.evora-bright-mode .ictv-theme .status {
+  background: #fff;
+  border-color: #cfd8e6;
+  color: #526176;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-theme .status.ok {
+  color: #0b7f57;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-theme .status.warn {
+  color: #9a6700;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-theme .status.err {
+  color: #c81e1e;
+}
+
+#ictv-resolver.evora-bright-mode .toggle {
+  color: #172033;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-table {
+  border-color: #cfd8e6;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-table thead th {
+  background: #e8eef7;
+  border-color: #cfd8e6;
+  color: #253149;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-table tbody td {
+  border-color: #d8e0ea;
+  color: #172033;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-table tbody tr:hover td {
+  background: #f0f5fb;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-table tbody tr .text-white,
+#ictv-resolver.evora-bright-mode .ictv-table tbody tr .text-gray-100,
+#ictv-resolver.evora-bright-mode .ictv-table tbody tr .text-gray-200,
+#ictv-resolver.evora-bright-mode .ictv-table tbody tr .text-gray-300 {
+  color: #172033;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-json {
+  background: #fff;
+  border-color: #cfd8e6;
+  color: #172033;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-lineage-btn {
+  background: #eef4ff;
+  border-color: #c3ccda;
+  color: #172033;
+}
+
+#ictv-resolver.evora-bright-mode .ictv-lineage-btn:hover {
+  background: #e1ebfb;
+  color: #172033;
+  filter: none;
+  box-shadow: inset 0 0 0 1px rgba(27, 99, 206, 0.12);
+}
+
+#ictv-resolver.evora-bright-mode .lineage-row td {
+  background: #f0f5fb !important;
+  color: #172033;
+}
+
+#ictv-resolver.evora-bright-mode .text-primary,
+#ictv-resolver.evora-bright-mode .ictv-theme a {
+  color: #1b63ce;
+}
+
+#ictv-resolver.evora-bright-mode .text-gray-400 {
+  color: #66758a;
+}
+
+@media (max-width: 1139px) {
+  #ictv-resolver.evora-bright-mode .ictv-table tbody tr {
+    background: #fff;
+    border-color: #cfd8e6;
+  }
+
+  #ictv-resolver.evora-bright-mode .ictv-table tbody td::before {
+    color: #526176;
+  }
+}
