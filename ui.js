@@ -239,7 +239,7 @@ export default function initUI(api) {
     }
 
     const { cols, rows } = compactColumns(objects);
-    const hidden = new Set(['iri', 'lineage', 'ictv_curie', 'direct_parent_iri', 'rank_iri', 'ancestors_iris', 'replaced_by', 'had_revision', 'is_obsolete', 'obsolescence_reason']);
+    const hidden = new Set(['iri', 'lineage', 'ictv_curie', 'direct_parent_iri', 'rank_iri', 'ancestors_iris', 'replaced_by', 'had_revision', 'is_obsolete', 'obsolescence_reason', 'reason_iri', 'obsolescence_reason_iri']);
     const visibleCols = cols.filter(c => !hidden.has(c));
 
     const preferredOrder = [
