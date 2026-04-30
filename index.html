@@ -120,7 +120,7 @@
   <!-- Where Magic happens: Load helper from the ontology repo, then UI code -->
   <script type="module">
     import { ICTVApi } from 'https://cdn.jsdelivr.net/gh/EVORA-project/ictv-ontology@main/helpers/js/ictv-api.js?v=20260430-multi-iri';
-    import initUI from './ui.js';
+    import initUI from 'https://cdn.jsdelivr.net/gh/EVORA-project/ictv-resolver@v1.0.5/ui.js';
     const api = new ICTVApi();
     initUI(api);
   </script>
