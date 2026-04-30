@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   ]);
 
   initMenu();
+  initBrightMode();
   initScroll();
   initBackToTop();
 });
@@ -86,6 +87,76 @@ function initScroll() {
 
   window.addEventListener("scroll", onScroll);
   onScroll();
+}
+
+/* -------------------------------
+ * Bright mode for publication screenshots
+ * ------------------------------- */
+function initBrightMode() {
+  const toggle = document.querySelector("#brightModeToggle");
+  if (!toggle) return;
+
+  const storageKey = "evora-ictv-bright-mode";
+  const resolver = document.querySelector("#ictv-resolver");
+  if (!resolver) return;
+
+  function getBrightModeIcon(isBright) {
+    if (isBright) {
+      return `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" aria-hidden="true">
+          <path d="M12 2C9.76 2 7.78 3.05 6.5 4.68l9.81 9.82C17.94 13.21 19 11.24 19 9a7 7 0 0 0-7-7M3.28 4 2 5.27 5.04 8.3C5 8.53 5 8.76 5 9c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h5.73l4 4L20 20.72zM9 20v1a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1z"></path>
+        </svg>
+      `;
+    }
+
+    return `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" aria-hidden="true">
+        <path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"></path>
+      </svg>
+    `;
+  }
+
+  function getInitialState() {
+    const requestedTheme = new URLSearchParams(window.location.search).get("theme");
+    if (requestedTheme === "bright") return true;
+    if (requestedTheme === "dark") return false;
+
+    try {
+      const saved = localStorage.getItem(storageKey);
+      if (saved === "on") return true;
+      if (saved === "off") return false;
+    } catch (err) {
+      console.warn("Bright mode preference unavailable", err);
+    }
+    return false;
+  }
+
+  function applyBrightMode(isBright) {
+    resolver.classList.toggle("evora-bright-mode", isBright);
+    toggle.innerHTML = getBrightModeIcon(isBright);
+    toggle.setAttribute("aria-pressed", String(isBright));
+    toggle.setAttribute(
+      "aria-label",
+      isBright ? "Switch to dark mode" : "Switch to bright mode"
+    );
+    toggle.setAttribute(
+      "title",
+      isBright ? "Switch to dark mode" : "Switch to bright mode"
+    );
+  }
+
+  let isBright = getInitialState();
+  applyBrightMode(isBright);
+
+  toggle.addEventListener("click", () => {
+    isBright = !isBright;
+    applyBrightMode(isBright);
+    try {
+      localStorage.setItem(storageKey, isBright ? "on" : "off");
+    } catch (err) {
+      console.warn("Bright mode preference could not be saved", err);
+    }
+  });
 }
 
 /* -------------------------------

@@ -21,6 +21,7 @@
   <link rel="canonical" href="https://evora-project.eu" />
   <link rel="icon" sizes="any" type="image/svg+xml" href="assets/images/logo/logo_favicon.svg">
   <link rel="stylesheet" href="assets/css/evora-ictv-resolver.css" />
+  <link rel="stylesheet" href="assets/css/bright-mode.css" />
 </head>
 
 <body class="bg-dark text-white">
@@ -62,7 +63,10 @@
           </div>
 
           <div class="ictv-wrap">
-            <div class="ictv-title">ICTV Taxon Resolver</div>
+            <div class="ictv-title-row">
+              <div class="ictv-title">ICTV Taxon Resolver</div>
+              <button id="brightModeToggle" class="theme-toggle ictv-bright-toggle" type="button" aria-label="Switch to bright mode" title="Switch to bright mode"></button>
+            </div>
             <div class="ictv-subtitle">Paste a virus name, a taxon name (incl. synonyms), an ICTV ID/IRI, or an NCBI
               Taxon ID. Choose an action, then resolve.</div>
 
@@ -116,7 +120,7 @@
   <!-- Where Magic happens: Load helper from the ontology repo, then UI code -->
   <script type="module">
     import { ICTVApi } from 'https://cdn.jsdelivr.net/gh/EVORA-project/ictv-ontology/helpers/js/ictv-api.js';
-    import initUI from 'https://cdn.jsdelivr.net/gh/EVORA-project/ictv-resolver@v1.0.4/ui.js';
+    import initUI from './ui.js';
     const api = new ICTVApi();
     initUI(api);
   </script>
